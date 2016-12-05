@@ -2089,10 +2089,10 @@ class MeshTally(StatMesh):
         not flux-to-dose conversion factors are being used.
         """
         line = f.readline()
-        if ('neutron' in line):
-            self.particle = 'neutron'
-        elif ('photon' in line):
-            self.particle = 'photon'
+        if 'This is a' in line:  # MCNP5
+            self.particle = line.split()[3]
+        else:  # MCNP6
+            self.particle = line.split()[0]
 
         # determine if meshtally flux-to-dose conversion factors are being used.
         line = f.readline()
